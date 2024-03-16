@@ -1,0 +1,33 @@
+.booksPage {
+  background: url("../images/cubes.webp");
+  background-color: #000;
+  min-height: 100vh;
+
+  .book {
+    backdrop-filter: blur(10px);
+
+    img {
+      width: 100%;
+      max-width: 250px;
+      height: 350px;
+    }
+  }
+}
+
+.filterCon {
+  & > button {
+    display: inline;
+    backdrop-filter: blur(10px);
+    background-color: transparent;
+    color: #fff;
+    outline: none;
+    border: 1px solid #fff;
+
+    &:nth-of-type(1) {
+      border-radius: 5px 0 0 5px;
+    }
+    &:last-of-type {
+      border-radius: 0 5px 5px 0;
+    }
+  }
+}

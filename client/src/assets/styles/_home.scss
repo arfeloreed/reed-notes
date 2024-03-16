@@ -1,0 +1,56 @@
+.homeCon {
+  background: url("../images/bg.webp");
+  min-height: 100vh;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  .h3 {
+    letter-spacing: 4px;
+  }
+
+  h1 {
+    letter-spacing: 7px;
+  }
+
+  .homeGif {
+    width: 100%;
+    max-width: 450px;
+    height: 480px;
+    border-radius: 15px;
+  }
+
+  .socials {
+    a {
+      font-size: 30px;
+      text-decoration: none;
+      margin: 0 15px;
+      color: #ccc;
+      transition: all 0.3s ease;
+
+      svg {
+        transition: all 0.3s ease;
+      }
+
+      &:hover {
+        color: green;
+
+        svg {
+          transform: translateY(-10px);
+        }
+      }
+    }
+  }
+}
