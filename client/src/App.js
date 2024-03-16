@@ -21,6 +21,10 @@ function App() {
       path: "/book/:id",
       element: <BookDetail />,
     },
+    {
+      path: "/error",
+      element: <Error />,
+    },
   ]);
 
   return (

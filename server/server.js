@@ -38,6 +38,30 @@ app.get("/books", async (req, res) => {
   }
 });
 
+// get book
+app.get("/book/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const bookResult = await db.query("SELECT * FROM books WHERE id = $1", [id]);
+    const book = bookResult.rows[0];
+
+    if (book) {
+      const notesResult = await db.query("SELECT * FROM booknotes WHERE book_id = $1", [
+        id,
+      ]);
+      const notes = notesResult.rows;
+
+      return res.json({ message: "success", book: book, notes: notes });
+    } else {
+      return res.json({ message: "error" });
+    }
+  } catch (err) {
+    console.log("Internal server error.", err);
+    return res.json({ message: "error" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
