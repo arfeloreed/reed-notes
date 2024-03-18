@@ -31,7 +31,7 @@ function Books() {
     if (sortBy === "newest") {
       setFilteredBooks(
         [...filteredBooks].sort((a, b) => {
-          return a.id - b.id;
+          return b.id - a.id;
         })
       );
     }

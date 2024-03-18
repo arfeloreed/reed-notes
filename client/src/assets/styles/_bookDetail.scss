@@ -2,4 +2,21 @@
   background: url("../images/cubes.webp");
   background-color: #000;
   min-height: 100vh;
+
+  .bookImg {
+    width: 100%;
+    max-width: 450px;
+    height: 650px;
+  }
+
+  .notesCon {
+    max-width: 650px;
+    margin: 70px auto 0;
+  }
+
+  .notes {
+    p {
+      text-align: justify;
+    }
+  }
 }
