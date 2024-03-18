@@ -1,9 +1,16 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isAuth = useIsAuthenticated();
+  const logout = useSignOut();
+
   return (
     <nav className="navbar navbar-expand-lg text-bg-success">
       <div className="container">
@@ -31,6 +38,22 @@ function Navbar() {
                 BOOKS
               </NavLink>
             </li>
+            {isAuth() && (
+              <li className="nav-item">
+                <a
+                  href={`${location.pathname}`}
+                  style={{ cursor: "pointer" }}
+                  className="nav-link"
+                  onClick={(ev) => {
+                    ev.preventDefault();
+                    logout();
+                    navigate(`${location.pathname}`);
+                  }}
+                >
+                  LOGOUT
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>

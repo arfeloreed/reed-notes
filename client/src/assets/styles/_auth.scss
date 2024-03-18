@@ -1,0 +1,48 @@
+.authPage {
+  min-height: 100vh;
+  background-color: #000;
+}
+
+.authCon {
+  height: 90vh;
+
+  form {
+    background-color: #1b2720;
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+.inputBox {
+  position: relative;
+
+  input {
+    color: #faf6f0;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 10px 5px 5px;
+    font-size: 1rem;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 30px;
+  }
+
+  label {
+    font-size: 1.1rem;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+  }
+
+  input:focus ~ label,
+  input:valid ~ label {
+    top: -20px;
+    font-size: 0.7rem;
+    color: #03e9f4;
+  }
+}
