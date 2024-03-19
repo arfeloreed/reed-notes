@@ -66,6 +66,7 @@ function Login() {
               id="username"
               required
               autoComplete="off"
+              autoFocus
               value={username}
               onChange={(ev) => setUsername(ev.target.value)}
             />

@@ -47,9 +47,7 @@ app.get("/book/:id", async (req, res) => {
     const book = bookResult.rows[0];
 
     if (book) {
-      const notesResult = await db.query("SELECT * FROM booknotes WHERE book_id = $1", [
-        id,
-      ]);
+      const notesResult = await db.query("SELECT * FROM notes WHERE book_id = $1", [id]);
       const notes = notesResult.rows;
 
       return res.json({ message: "success", book: book, notes: notes });
@@ -58,6 +56,48 @@ app.get("/book/:id", async (req, res) => {
     }
   } catch (err) {
     console.log("Internal server error.", err);
+    return res.json({ message: "error" });
+  }
+});
+
+// add a book
+app.post("/books", async (req, res) => {
+  const { title, author, rating, date_read, olid, description } = req.body;
+
+  try {
+    const result = await db.query(
+      "INSERT INTO books (title, author, rating, date_read, olid, description) \
+      VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [title, author, rating, date_read, olid, description]
+    );
+    const data = result.rows[0];
+
+    if (data) {
+      return res.json({ message: "success" });
+    } else return res.json({ message: "error" });
+  } catch (err) {
+    console.log("Can't add book.", err);
+    return res.json({ message: "error" });
+  }
+});
+
+// add a note
+app.post("/book/:id", async (req, res) => {
+  const { note } = req.body;
+  const { id } = req.params;
+
+  try {
+    const result = await db.query(
+      "INSERT INTO notes (book_id, note) VALUES ($1, $2) RETURNING *",
+      [parseInt(id), note]
+    );
+    const data = result.rows[0];
+
+    if (data) {
+      return res.json({ message: "success" });
+    } else return res.json({ message: "error" });
+  } catch (err) {
+    console.log("Can't add a note.", err);
     return res.json({ message: "error" });
   }
 });
@@ -96,7 +136,7 @@ app.post("/signup", async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("Internal server error.", err);
+    console.log("Can't add admin.", err);
     return res.json({ message: "error" });
   }
 });
@@ -132,7 +172,7 @@ app.post("/login", async (req, res) => {
       });
     } else return res.json({ message: "error" });
   } catch (err) {
-    console.log("Internal server error.", err);
+    console.log("Can't login.", err);
     return res.json({ message: "error" });
   }
 });

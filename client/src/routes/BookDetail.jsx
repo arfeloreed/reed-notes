@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 // components
 import Navbar from "../components/Navbar";
 import Note from "../components/Note";
+import AddNote from "../components/AddNote";
 
 function BookDetail() {
   // variables
@@ -12,6 +14,7 @@ function BookDetail() {
   const url = process.env.REACT_APP_URL || "http://localhost:5000";
   const [book, setBook] = useState({});
   const [notes, setNotes] = useState([]);
+  const isAuth = useIsAuthenticated();
 
   // helper functions
   async function getBook() {
@@ -32,7 +35,7 @@ function BookDetail() {
 
   useEffect(() => {
     getBook();
-  }, []);
+  }, [notes]);
 
   return (
     <div className="bookDetailPage">
@@ -42,14 +45,14 @@ function BookDetail() {
         <div className="text-center mt-5">
           <h1 className="display-1 my-5">{book.title}</h1>
           <img
-            src={`https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg`}
+            src={`https://covers.openlibrary.org/b/olid/${book.olid}-L.jpg`}
             alt={book.title}
             className="bookImg"
           />
 
           <div className="mt-5 lead fw-normal">
             <p>Author: {book.author}</p>
-            <p>ISBN: {book.isbn}</p>
+            <p>OLID: {book.olid}</p>
             <p>
               Read on: {book.date_read instanceof Date && book.date_read.toDateString()}
             </p>
@@ -68,6 +71,8 @@ function BookDetail() {
               return <Note key={note.id} note={note.note} />;
             })}
           </div>
+
+          {isAuth() && <AddNote />}
         </div>
       </div>
     </div>

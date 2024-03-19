@@ -10,11 +10,11 @@ create table books (
     author varchar(255),
     rating real not null,
     date_read date,
-    description text,
-    isbn text
+    olid text,
+    description text
 );
 
-create table booknotes (
+create table notes (
     id bigserial primary key,
     book_id bigint not null references books(id),
     note text
