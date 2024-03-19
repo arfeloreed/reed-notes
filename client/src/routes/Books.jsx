@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 // components
 import Navbar from "../components/Navbar";
 import Book from "../components/Book";
+import AddBook from "../components/AddBook";
 
 function Books() {
   // variables
   const url = process.env.REACT_APP_URL || "http://localhost:5000";
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const isAuth = useIsAuthenticated();
 
   // helper functios
   // getting all books
@@ -57,7 +60,7 @@ function Books() {
     <div className="booksPage">
       <Navbar />
 
-      <div className="container text-light">
+      <div className="container text-light pb-5">
         <div className="mt-5">
           <h1 className="display-2">Reed's Notes</h1>
           <p className="lead mt-4 fs-4">
@@ -108,14 +111,14 @@ function Books() {
           </div>
         </div>
 
-        <div className="booksCon py-5 px-2 px-md-0">
+        <div className="booksCon pt-5 px-2 px-md-0">
           {filteredBooks.map((book) => {
             return (
               <Book
                 key={book.id}
                 id={book.id}
                 title={book.title}
-                isbn={book.isbn}
+                olid={book.olid}
                 author={book.author}
                 rating={book.rating}
                 description={book.description}
@@ -123,6 +126,8 @@ function Books() {
             );
           })}
         </div>
+
+        {isAuth() && <AddBook updateBooks={getBooks} />}
       </div>
     </div>
   );

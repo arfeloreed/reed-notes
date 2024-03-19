@@ -20,3 +20,20 @@
     }
   }
 }
+
+.addNote {
+  background-color: $form-bg-color;
+  max-width: 500px;
+}
+
+#note {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  font-size: 1rem;
+  color: $form-text-color;
+  padding: 5px 10px;
+}

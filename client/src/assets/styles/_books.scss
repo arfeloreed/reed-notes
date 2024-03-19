@@ -31,3 +31,37 @@
     }
   }
 }
+
+.addBookForm {
+  background-color: $form-bg-color;
+  max-width: 700px;
+}
+
+.inputBox2 {
+  label {
+    font-size: 1.1rem;
+  }
+
+  input,
+  textarea {
+    display: block;
+    margin: 10px 0 20px;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid #fff;
+    color: $form-text-color;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  input[type="number"] {
+    text-align: center;
+  }
+  input[type="date"] {
+    color-scheme: dark;
+  }
+  textarea {
+    width: 100%;
+  }
+}

@@ -7,7 +7,7 @@
   height: 90vh;
 
   form {
-    background-color: #1b2720;
+    background-color: $form-bg-color;
     width: 100%;
     max-width: 400px;
   }
@@ -17,7 +17,7 @@
   position: relative;
 
   input {
-    color: #faf6f0;
+    color: $form-text-color;
     width: 100%;
     background-color: transparent;
     border: none;
@@ -26,6 +26,10 @@
     font-size: 1rem;
     border-bottom: 1px solid #fff;
     margin-bottom: 30px;
+
+    &[type="password"] {
+      color-scheme: dark;
+    }
   }
 
   label {
@@ -43,6 +47,6 @@
   input:valid ~ label {
     top: -20px;
     font-size: 0.7rem;
-    color: #03e9f4;
+    color: $form-label-color;
   }
 }

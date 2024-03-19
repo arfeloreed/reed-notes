@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function Book({ id, title, isbn, author, rating, description }) {
+function Book({ id, title, olid, author, rating, description }) {
   const navigate = useNavigate();
 
   return (
     <div className="book mt-5 row row-cols-1 row-cols-md-2 p-5 rounded-3">
       <div className="col d-flex justify-content-center mb-5 mb-md-0">
-        <img src={`https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`} alt={title} />
+        <img src={`https://covers.openlibrary.org/b/olid/${olid}-M.jpg`} alt={title} />
       </div>
 
       <div className="col d-flex flex-column align-items-start justify-content-center">
