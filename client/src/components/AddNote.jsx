@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-function AddNote() {
+function AddNote({ updateNotes }) {
   const [note, setNote] = useState("");
   const { id } = useParams();
   const [error, setError] = useState("");
@@ -13,11 +13,12 @@ function AddNote() {
     const url = process.env.REACT_APP_URL || "http://localhost:5000";
 
     try {
-      const response = await axios.post(`${url}/book/${id}`, data);
+      const response = await axios.post(`${url}/book/${id}/notes`, data);
 
       if (response.data.message === "success") {
         setError("");
         setNote("");
+        updateNotes();
       } else setError("Can't add note");
     } catch (err) {
       console.log("Can't add a note: ", err);
