@@ -59,7 +59,7 @@ function BookDetail() {
     <div className="bookDetailPage">
       <Navbar />
 
-      <div className="container text-light py-5">
+      <div className="container text-light pb-5">
         <div className="text-center mt-5">
           <h1 className="display-1 my-5">{book.title}</h1>
           <img
