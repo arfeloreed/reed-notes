@@ -15,12 +15,15 @@ app.use(cors());
 app.use(express.json());
 
 // db setup
+// const db = new pg.Client({
+//   user: process.env.DB_USER,
+//   host: process.env.DB_HOST,
+//   database: process.env.DB_DATABASE,
+//   password: process.env.DB_PASSWORD,
+//   port: process.env.DB_PORT,
+// });
 const db = new pg.Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: process.env.DB_CONNECTION_STRING,
 });
 db.connect();
 
@@ -47,15 +50,31 @@ app.get("/book/:id", async (req, res) => {
     const book = bookResult.rows[0];
 
     if (book) {
-      const notesResult = await db.query("SELECT * FROM notes WHERE book_id = $1", [id]);
-      const notes = notesResult.rows;
-
-      return res.json({ message: "success", book: book, notes: notes });
+      return res.json({ message: "success", book: book });
     } else {
       return res.json({ message: "error" });
     }
   } catch (err) {
-    console.log("Internal server error.", err);
+    console.log("Can't get book.", err);
+    return res.json({ message: "error" });
+  }
+});
+
+// get notes
+app.get("/book/:id/notes", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const notesResult = await db.query("SELECT * FROM notes WHERE book_id = $1", [id]);
+    const notes = notesResult.rows;
+
+    if (notes) {
+      return res.json({ message: "success", notes: notes });
+    } else {
+      return res.json({ message: "error" });
+    }
+  } catch (err) {
+    console.log("Can't get notes.", err);
     return res.json({ message: "error" });
   }
 });
@@ -82,7 +101,7 @@ app.post("/books", async (req, res) => {
 });
 
 // add a note
-app.post("/book/:id", async (req, res) => {
+app.post("/book/:id/notes", async (req, res) => {
   const { note } = req.body;
   const { id } = req.params;
 

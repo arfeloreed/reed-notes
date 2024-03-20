@@ -9,3 +9,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+// scroll to top button
+.scrollBtnCon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  button {
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}

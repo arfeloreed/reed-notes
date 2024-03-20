@@ -25,6 +25,7 @@ function Signup() {
 
     try {
       const response = await axios.post(`${url}/signup`, data);
+      console.log(response);
 
       if (response.data.message === "success") {
         setError("");

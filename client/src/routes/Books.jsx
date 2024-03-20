@@ -5,6 +5,7 @@ import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import Navbar from "../components/Navbar";
 import Book from "../components/Book";
 import AddBook from "../components/AddBook";
+import ScrollToTopBtn from "../components/ScrollToTopBtn";
 
 function Books() {
   // variables
@@ -129,6 +130,8 @@ function Books() {
 
         {isAuth() && <AddBook updateBooks={getBooks} />}
       </div>
+
+      <ScrollToTopBtn />
     </div>
   );
 }

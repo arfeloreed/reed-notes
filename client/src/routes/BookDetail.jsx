@@ -6,6 +6,7 @@ import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import Navbar from "../components/Navbar";
 import Note from "../components/Note";
 import AddNote from "../components/AddNote";
+import ScrollToTopBtn from "../components/ScrollToTopBtn";
 
 function BookDetail() {
   // variables
@@ -20,22 +21,39 @@ function BookDetail() {
   async function getBook() {
     try {
       const response = await axios.get(`${url}/book/${id}`);
+
       if (response.data.message === "success") {
         const fetchBook = response.data.book;
         fetchBook.date_read = new Date(fetchBook.date_read);
         setBook(fetchBook);
-        setNotes(response.data.notes);
       } else {
         navigate("/error");
       }
     } catch (err) {
-      console.log("Can't fetch data: ", err);
+      console.log("Can't fetch book: ", err);
+    }
+  }
+
+  async function getNotes() {
+    try {
+      const response = await axios.get(`${url}/book/${id}/notes`);
+
+      if (response.data.message === "success") {
+        setNotes(response.data.notes);
+      }
+    } catch (err) {
+      console.log("Can't fetch notes: ", err);
     }
   }
 
   useEffect(() => {
     getBook();
-  }, [notes]);
+    getNotes();
+    window.scrollTo({
+      top: 0,
+      behavior: "instant",
+    });
+  }, []);
 
   return (
     <div className="bookDetailPage">
@@ -72,9 +90,11 @@ function BookDetail() {
             })}
           </div>
 
-          {isAuth() && <AddNote />}
+          {isAuth() && <AddNote updateNotes={getNotes} />}
         </div>
       </div>
+
+      <ScrollToTopBtn />
     </div>
   );
 }
